@@ -9,15 +9,14 @@ El MCM de 4 y 6 es: 12
 #include <iostream>
 using namespace std;
 
-bool numero_primo(int);
+//Prototipo funcion factores
+int factores(int numero);
 
 int main(){
 
-    int numero_A;
-    int numero_B;
+    int numero_A = 15;
+    int numero_B = 7;
     int mcm = 1;
-    bool primo_A ;
-    bool primo_B;
 
     //Captura de datos
     cout << "Ingrese el numero A: ";
@@ -25,58 +24,43 @@ int main(){
     cout << "Ingrese el numero B: ";
     cin >> numero_B;
 
-    primo_A = numero_primo(numero_A);
-    primo_B = numero_primo(numero_B);
-
-    //Primera condicion, si los numeros son pares y alguno es mcm del otro
-    if ((numero_A % numero_B == 0) || (numero_B % numero_A == 0))
-
-        if (numero_A % numero_B == 0)
-            mcm = numero_A,
-            cout << "El mcm entre " << numero_A << " y " << numero_B << " es " << mcm << endl;
-
-        else
-            mcm = numero_B,
-            cout << "El mcm entre " << numero_A << " y " << numero_B << " es " << mcm << endl;
-
-    //Segunda condicion, si ambos numeros son primos
-    else if ((primo_A == true) && (primo_B == true))
-        mcm = numero_A * numero_B,
-        cout << "El mcm entre " << numero_A << " y el numero " << numero_B << " es " << mcm << endl;
-
-    //Tercera condicion un numero par y otro primo
-    else
-        mcm = numero_A * numero_B,
-        cout << "El mcm entre " << numero_A << " y el numero " << numero_B << " es " << mcm << endl;
-
-    return 0;
-}
-
-//Funcion de numeros primos
-bool numero_primo(int numero){
-
-    bool primo;
-    int contador = 0;
-    for(int i=1; i<=numero; i++) {
-
-        if((numero % i) == 0) {
-                contador += 1;
-
-                if ((contador > 2) || (numero == 1)){
-                    primo = false;
-                    break;
-                }
-
-                else{
-                    if((contador == 2) && (i == numero))
-                        primo = true;
-                }
-        }
-
-        else{
-            continue;
+    if (numero_A > numero_B){
+       int factor = 1;
+        factor = factores(numero_A);
+        for (int i = 1; i <= factor; i++){
+            if ((i % numero_A == 0) && ( i % numero_B == 0) && (i >=numero_A)){
+                mcm = i;
+                break;
+            }
         }
     }
 
-    return primo;
+
+    else{
+
+        int factor = 1;
+        factor = factores(numero_B);
+
+        for (int i = 1; i <= factor; i++){
+            if ((i % numero_B == 0) && (i % numero_A == 0) && (i >=numero_B)){
+                mcm = i;
+                break;
+            }
+        }
+    }
+
+    cout << "El mcm de " << numero_A << " y " << numero_B << " es " << mcm << endl;
+    return 0;
+
+}
+
+//Funcion que encuentra los factores del numero
+int factores(int numero){
+
+    int factor = 1;
+    for (int i = 1; i <= numero; i++){
+        factor *= i;
+    }
+
+    return factor;
 }
