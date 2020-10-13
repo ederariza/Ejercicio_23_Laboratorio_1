@@ -35,7 +35,6 @@ int main(){
         }
     }
 
-
     else{
 
         int factor = 1;
